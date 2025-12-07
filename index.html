@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         * {
             margin: 0;
@@ -34,7 +38,6 @@
             overflow-x: hidden;
         }
 
-        /* Smooth Scroll */
         html {
             scroll-behavior: smooth;
         }
@@ -93,11 +96,20 @@
             font-family: 'Playfair Display', serif;
             font-size: 4.5rem;
             font-weight: 900;
-            color: var(--orange-primary);
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 3px 3px 10px rgba(255, 140, 66, 0.3);
             margin-bottom: 1rem;
             letter-spacing: 2px;
             line-height: 1.2;
+            animation: textMorph 3s ease-in-out infinite;
+        }
+
+        @keyframes textMorph {
+            0%, 100% { transform: perspective(500px) rotateX(0deg); }
+            50% { transform: perspective(500px) rotateX(2deg); }
         }
 
         .hero-subtitle {
@@ -119,6 +131,9 @@
             margin: 1rem 0 2rem;
             box-shadow: 0 8px 30px rgba(255, 140, 66, 0.5);
             animation: pulse 2s infinite;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         @keyframes pulse {
@@ -138,6 +153,26 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 140, 66, 0.4);
             margin: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
@@ -218,7 +253,10 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--orange-primary);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -281,7 +319,9 @@
             transition: all 0.3s ease;
             font-weight: 600;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
         .lang-btn:hover {
@@ -304,10 +344,19 @@
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: var(--orange-primary);
+            background: linear-gradient(135deg, var(--orange-primary) 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-align: center;
             margin-bottom: 1rem;
             position: relative;
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         .section-title::after {
@@ -317,6 +366,12 @@
             height: 4px;
             background: linear-gradient(90deg, transparent, var(--orange-primary), transparent);
             margin: 1rem auto;
+            animation: lineExpand 2s ease-in-out infinite;
+        }
+
+        @keyframes lineExpand {
+            0%, 100% { width: 100px; }
+            50% { width: 150px; }
         }
 
         .section-subtitle {
@@ -343,6 +398,26 @@
             text-align: center;
             border: 1px solid rgba(255, 140, 66, 0.2);
             transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 140, 66, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: all 0.5s ease;
+            transform: rotate(0deg);
+        }
+
+        .about-card:hover::before {
+            opacity: 1;
+            transform: rotate(180deg);
         }
 
         .about-card:hover {
@@ -355,6 +430,22 @@
         .about-card-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-card-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: var(--orange-primary);
+            transition: all 0.4s ease;
+        }
+
+        .about-card:hover .about-card-icon svg {
+            stroke: var(--gold);
+            transform: scale(1.2) rotate(10deg);
         }
 
         .about-card h3 {
@@ -387,11 +478,13 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: all 0.4s ease;
+            border: 2px solid rgba(255, 140, 66, 0.2);
         }
 
         .video-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 50px rgba(255, 140, 66, 0.3);
+            border-color: var(--orange-primary);
         }
 
         .video-card video {
@@ -470,6 +563,16 @@
             padding-bottom: 1rem;
             border-bottom: 2px solid var(--orange-primary);
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .menu-category-title svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--gold);
         }
 
         .menu-item {
@@ -614,6 +717,26 @@
             text-align: center;
             border: 2px solid rgba(255, 140, 66, 0.2);
             transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 140, 66, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .contact-card:hover::after {
+            width: 400px;
+            height: 400px;
         }
 
         .contact-card:hover {
@@ -625,29 +748,281 @@
         .contact-icon {
             font-size: 3rem;
             margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: var(--orange-primary);
+            transition: all 0.4s ease;
+        }
+
+        .contact-card:hover .contact-icon svg {
+            stroke: var(--gold);
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Phone Card with Arrow Animation */
+        .phone-card .contact-icon svg {
+            animation: phoneRing 2s ease-in-out infinite;
+        }
+
+        @keyframes phoneRing {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30% { transform: rotate(-15deg); }
+            20%, 40% { transform: rotate(15deg); }
+            50% { transform: rotate(0deg); }
+        }
+
+        .phone-card:hover .contact-icon svg {
+            animation: none;
+            transform: scale(1.3) rotate(0deg);
+        }
+
+        .phone-arrow {
+            position: absolute;
+            top: 50%;
+            left: -30px;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .phone-arrow svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--orange-primary);
+            animation: arrowBounce 1s ease-in-out infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .phone-card:hover .phone-arrow {
+            opacity: 1;
+            left: -50px;
+        }
+
+        /* Hygiene Badge Card with Interactive Effect */
+        .hygiene-badge-container {
+            margin-top: 1.5rem;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hygiene-badge {
+            background: linear-gradient(135deg, #2B3FD6 0%, #1E2DB8 100%);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(43, 63, 214, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .hygiene-badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .hygiene-badge:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 45px rgba(43, 63, 214, 0.6);
+        }
+
+        .hygiene-title {
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 0.7rem;
+            opacity: 0.9;
+        }
+
+        .hygiene-smileys {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .smiley {
+            width: 32px;
+            height: 32px;
+            transition: all 0.3s ease;
+            opacity: 0.4;
+            filter: grayscale(0.5);
+        }
+
+        .smiley.inactive {
+            opacity: 0.3;
+        }
+
+        .smiley.active {
+            opacity: 1;
+            filter: grayscale(0);
+            animation: bounce-smiley 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce-smiley {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .smiley:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .smiley svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .hygiene-rating {
+            background: white;
+            color: #2B3FD6;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hygiene-label {
+            margin-top: 1rem;
+            color: var(--gray-text);
+            font-size: 0.85rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hygiene-card:hover .hygiene-badge {
+            animation: pulse-hygiene 0.6s ease-in-out;
+        }
+
+        @keyframes pulse-hygiene {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
         }
 
         .contact-card h3 {
             color: var(--gold);
             font-size: 1.5rem;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-card p {
             color: var(--light-text);
             font-size: 1.1rem;
             line-height: 1.8;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-card a {
             color: var(--orange-primary);
             text-decoration: none;
             transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-card a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--orange-primary);
+            transition: width 0.3s ease;
+        }
+
+        .contact-card a:hover::after {
+            width: 100%;
         }
 
         .contact-card a:hover {
             color: var(--gold);
-            text-decoration: underline;
+        }
+
+        /* Reviews Ticker */
+        .reviews-ticker {
+            background: linear-gradient(90deg, var(--orange-primary) 0%, var(--orange-secondary) 100%);
+            padding: 1.2rem 0;
+            overflow: hidden;
+            position: relative;
+            margin-top: 2cm;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-ticker 40s linear infinite;
+            gap: 4rem;
+        }
+
+        @keyframes scroll-ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-content::after {
+            content: '';
+            display: flex;
+            gap: 4rem;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .ticker-stars {
+            font-size: 1rem;
+        }
+
+        .ticker-text {
+            color: white;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .reviews-ticker:hover .ticker-content {
+            animation-play-state: paused;
         }
 
         /* Footer */
@@ -686,6 +1061,9 @@
             color: var(--gray-text);
             text-decoration: none;
             transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .footer-section a:hover {
@@ -708,13 +1086,22 @@
             border-radius: 50%;
             border: 2px solid var(--orange-primary);
             transition: all 0.3s ease;
-            font-size: 1.5rem;
+        }
+
+        .social-link svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--orange-primary);
         }
 
         .social-link:hover {
             background: var(--orange-primary);
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotate(360deg);
             box-shadow: 0 10px 25px rgba(255, 140, 66, 0.4);
+        }
+
+        .social-link:hover svg {
+            stroke: white;
         }
 
         .footer-bottom {
@@ -774,6 +1161,7 @@
                 padding: 1rem 2rem;
                 font-size: 1rem;
             }
+
         }
 
         @media (max-width: 480px) {
@@ -818,12 +1206,71 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="lang-switcher">
-                    <a href="index.html" class="lang-btn">🇫🇷 FR</a>
-                    <a href="index-ar.html" class="lang-btn">🇲🇦 AR</a>
+                    <a href="index.html" class="lang-btn">
+                        <i data-lucide="languages"></i> FR
+                    </a>
+                    <a href="index-ar.html" class="lang-btn">
+                        <i data-lucide="globe"></i> AR
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Reviews Ticker Top -->
+    <div class="reviews-ticker">
+        <div class="ticker-content">
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Rien à dire kebab très prope le meilleur à castillon la bataille" - fouine MƏ</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Viande savoureuse et frittes pas sèches. Je recommande" - MC SIMON</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Service aimable, les sandwichs sont excellents, et les gâteaux aussi" - Pedro Padez</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Cuisine 5/5 | Service 5/5 | Ambiance 5/5" - Edde 123</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Bon lieu, bon accueil, propre et rapide" - EIRL Tomy SCHULER</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Venu tard pensant que se serait fermé et bien accueilli bien servi merci" - Thomas Sauvey</span>
+            </div>
+            <!-- Duplicate for infinite scroll -->
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Rien à dire kebab très prope le meilleur à castillon la bataille" - fouine MƏ</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Viande savoureuse et frittes pas sèches. Je recommande" - MC SIMON</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Service aimable, les sandwichs sont excellents, et les gâteaux aussi" - Pedro Padez</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Cuisine 5/5 | Service 5/5 | Ambiance 5/5" - Edde 123</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Bon lieu, bon accueil, propre et rapide" - EIRL Tomy SCHULER</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Venu tard pensant que se serait fermé et bien accueilli bien servi merci" - Thomas Sauvey</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="accueil">
@@ -834,10 +1281,16 @@
         <div class="hero-content">
             <h1 class="hero-logo">Royaume des<br>Sandwiches</h1>
             <p class="hero-subtitle">Savourez l'excellence de notre cuisine halal</p>
-            <div class="halal-badge-hero">✓ 100% HALAL ✓</div>
+            <div class="halal-badge-hero">
+                <i data-lucide="check-circle"></i> 100% HALAL <i data-lucide="check-circle"></i>
+            </div>
             <div>
-                <a href="#menu" class="cta-button">Découvrir le Menu</a>
-                <a href="tel:0780386279" class="cta-button">Commander</a>
+                <a href="#menu" class="cta-button">
+                    <i data-lucide="book-open"></i> Découvrir le Menu
+                </a>
+                <a href="tel:0780386279" class="cta-button">
+                    <i data-lucide="phone"></i> Commander
+                </a>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -853,28 +1306,37 @@
 
             <div class="about-grid">
                 <div class="about-card">
-                    <div class="about-card-icon">🥙</div>
+                    <div class="about-card-icon">
+                        <i data-lucide="salad"></i>
+                    </div>
                     <h3>Produits Frais</h3>
                     <p>Nous sélectionnons rigoureusement nos ingrédients pour vous garantir une qualité exceptionnelle dans chaque bouchée.</p>
                 </div>
                 <div class="about-card">
-                    <div class="about-card-icon">✨</div>
+                    <div class="about-card-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
                     <h3>100% Halal</h3>
                     <p>Tous nos produits sont certifiés halal. Nous respectons les traditions et les valeurs de notre communauté.</p>
                 </div>
                 <div class="about-card">
-                    <div class="about-card-icon">👨‍🍳</div>
+                    <div class="about-card-icon">
+                        <i data-lucide="chef-hat"></i>
+                    </div>
                     <h3>Fait Maison</h3>
                     <p>Nos recettes sont préparées avec passion par nos chefs expérimentés, utilisant des méthodes traditionnelles.</p>
                 </div>
                 <div class="about-card">
-                    <div class="about-card-icon">🚀</div>
+                    <div class="about-card-icon">
+                        <i data-lucide="zap"></i>
+                    </div>
                     <h3>Service Rapide</h3>
                     <p>Commandez par téléphone ou sur place, nous préparons vos plats rapidement sans compromis sur la qualité.</p>
                 </div>
             </div>
         </div>
     </section>
+
 
     <!-- Video Section -->
     <section class="video-section fade-in" id="videos">
@@ -916,7 +1378,9 @@
             <div class="menu-grid">
                 <!-- Kebab et Tacos -->
                 <div class="menu-category">
-                    <h3 class="menu-category-title">🌯 Kebab & Tacos</h3>
+                    <h3 class="menu-category-title">
+                        <i data-lucide="sandwich"></i> Kebab & Tacos
+                    </h3>
 
                     <div class="menu-item">
                         <div class="menu-item-content">
@@ -969,7 +1433,9 @@
 
                 <!-- Sandwiches -->
                 <div class="menu-category">
-                    <h3 class="menu-category-title">🥖 Sandwiches</h3>
+                    <h3 class="menu-category-title">
+                        <i data-lucide="croissant"></i> Sandwiches
+                    </h3>
 
                     <div class="menu-item">
                         <div class="menu-item-content">
@@ -1041,7 +1507,9 @@
 
                 <!-- Cheese & Wraps -->
                 <div class="menu-category">
-                    <h3 class="menu-category-title">🧀 Cheese & Wraps</h3>
+                    <h3 class="menu-category-title">
+                        <i data-lucide="cake"></i> Cheese & Wraps
+                    </h3>
 
                     <div class="menu-item">
                         <div class="menu-item-content">
@@ -1109,7 +1577,9 @@
 
                 <!-- Plats Marocains -->
                 <div class="menu-category">
-                    <h3 class="menu-category-title">🍲 Plats Marocains</h3>
+                    <h3 class="menu-category-title">
+                        <i data-lucide="soup"></i> Plats Marocains
+                    </h3>
 
                     <div class="menu-item">
                         <div class="menu-item-content">
@@ -1161,30 +1631,146 @@
 
             <div class="contact-grid">
                 <div class="contact-card">
-                    <div class="contact-icon">📍</div>
+                    <div class="contact-icon">
+                        <i data-lucide="map-pin"></i>
+                    </div>
                     <h3>Adresse</h3>
                     <p>9 Rue Michel Montaigne<br>33350 Castillon-la-Bataille<br>France</p>
                 </div>
 
-                <div class="contact-card">
-                    <div class="contact-icon">📞</div>
+                <div class="contact-card phone-card">
+                    <div class="phone-arrow">
+                        <i data-lucide="arrow-right"></i>
+                    </div>
+                    <div class="contact-icon">
+                        <i data-lucide="phone"></i>
+                    </div>
                     <h3>Téléphone</h3>
                     <p><a href="tel:0780386279">07 80 38 62 79</a></p>
                     <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 0.5rem;">Commandes & Réservations</p>
                 </div>
 
+                <div class="contact-card hygiene-card">
+                    <div class="contact-icon">
+                        <i data-lucide="award"></i>
+                    </div>
+                    <h3>Niveau d'Hygiène</h3>
+                    <div class="hygiene-badge-container">
+                        <div class="hygiene-badge">
+                            <div class="hygiene-title">Niveau d'hygiène</div>
+                            <div class="hygiene-smileys">
+                                <div class="smiley inactive">
+                                    <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="25" cy="25" r="23" fill="none" stroke="white" stroke-width="2"/>
+                                        <circle cx="17" cy="20" r="2" fill="white"/>
+                                        <circle cx="33" cy="20" r="2" fill="white"/>
+                                        <path d="M 15 32 Q 25 27 35 32" stroke="white" stroke-width="2" fill="none"/>
+                                    </svg>
+                                </div>
+                                <div class="smiley inactive">
+                                    <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="25" cy="25" r="23" fill="none" stroke="white" stroke-width="2"/>
+                                        <circle cx="17" cy="20" r="2" fill="white"/>
+                                        <circle cx="33" cy="20" r="2" fill="white"/>
+                                        <line x1="15" y1="32" x2="35" y2="32" stroke="white" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="smiley inactive">
+                                    <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="25" cy="25" r="23" fill="none" stroke="white" stroke-width="2"/>
+                                        <circle cx="17" cy="20" r="2" fill="white"/>
+                                        <circle cx="33" cy="20" r="2" fill="white"/>
+                                        <path d="M 15 30 Q 25 35 35 30" stroke="white" stroke-width="2" fill="none"/>
+                                    </svg>
+                                </div>
+                                <div class="smiley active">
+                                    <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="25" cy="25" r="23" fill="none" stroke="white" stroke-width="2"/>
+                                        <circle cx="17" cy="20" r="2" fill="white"/>
+                                        <circle cx="33" cy="20" r="2" fill="white"/>
+                                        <path d="M 15 28 Q 25 38 35 28" stroke="white" stroke-width="2.5" fill="none"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="hygiene-rating">TRÈS SATISFAISANT</div>
+                        </div>
+                    </div>
+                    <p class="hygiene-label">Contrôle Hygiène Alimentaire</p>
+                </div>
+
                 <div class="contact-card">
-                    <div class="contact-icon">📱</div>
+                    <div class="contact-icon">
+                        <i data-lucide="share-2"></i>
+                    </div>
                     <h3>Réseaux Sociaux</h3>
                     <p>
-                        <a href="https://www.instagram.com/royaume_des_sandwiches/" target="_blank">Instagram</a><br>
-                        <a href="https://www.facebook.com/profile.php?id=61566467397080" target="_blank">Facebook</a>
+                        <a href="https://www.instagram.com/royaume_des_sandwiches/" target="_blank">
+                            <i data-lucide="instagram"></i> Instagram
+                        </a><br>
+                        <a href="https://www.facebook.com/profile.php?id=61566467397080" target="_blank">
+                            <i data-lucide="facebook"></i> Facebook
+                        </a>
                     </p>
                     <p style="font-size: 0.9rem; color: var(--gray-text); margin-top: 0.5rem;">@royaume_des_sandwiches</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Reviews Ticker Bottom -->
+    <div class="reviews-ticker">
+        <div class="ticker-content">
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Rien à dire kebab très prope le meilleur à castillon la bataille" - fouine MƏ</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Viande savoureuse et frittes pas sèches. Je recommande" - MC SIMON</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Service aimable, les sandwichs sont excellents, et les gâteaux aussi" - Pedro Padez</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Cuisine 5/5 | Service 5/5 | Ambiance 5/5" - Edde 123</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Bon lieu, bon accueil, propre et rapide" - EIRL Tomy SCHULER</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Venu tard pensant que se serait fermé et bien accueilli bien servi merci" - Thomas Sauvey</span>
+            </div>
+            <!-- Duplicate for infinite scroll -->
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Rien à dire kebab très prope le meilleur à castillon la bataille" - fouine MƏ</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Viande savoureuse et frittes pas sèches. Je recommande" - MC SIMON</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Service aimable, les sandwichs sont excellents, et les gâteaux aussi" - Pedro Padez</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Cuisine 5/5 | Service 5/5 | Ambiance 5/5" - Edde 123</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Bon lieu, bon accueil, propre et rapide" - EIRL Tomy SCHULER</span>
+            </div>
+            <div class="ticker-item">
+                <div class="ticker-stars">⭐⭐⭐⭐⭐</div>
+                <span class="ticker-text">"Venu tard pensant que se serait fermé et bien accueilli bien servi merci" - Thomas Sauvey</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1193,31 +1779,42 @@
                 <h3>Royaume des Sandwiches</h3>
                 <p>Votre destination pour une cuisine halal authentique et savoureuse à Castillon-la-Bataille.</p>
                 <div class="social-links">
-                    <a href="https://www.instagram.com/royaume_des_sandwiches/" target="_blank" class="social-link">📷</a>
-                    <a href="https://www.facebook.com/profile.php?id=61566467397080" target="_blank" class="social-link">📘</a>
-                    <a href="tel:0780386279" class="social-link">📞</a>
+                    <a href="https://www.instagram.com/royaume_des_sandwiches/" target="_blank" class="social-link">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61566467397080" target="_blank" class="social-link">
+                        <i data-lucide="facebook"></i>
+                    </a>
+                    <a href="tel:0780386279" class="social-link">
+                        <i data-lucide="phone"></i>
+                    </a>
                 </div>
             </div>
 
             <div class="footer-section">
                 <h3>Horaires d'Ouverture</h3>
                 <ul>
-                    <li>Lundi - Dimanche</li>
+                    <li><i data-lucide="clock"></i> Lundi - Dimanche</li>
                     <li>10h30 - 15h00</li>
                     <li>17h00 - 00h00</li>
-                    <li style="margin-top: 1rem; color: var(--orange-primary);">✓ 100% Halal</li>
+                    <li style="margin-top: 1rem; color: var(--orange-primary);">
+                        <i data-lucide="check-circle"></i> 100% Halal
+                    </li>
                 </ul>
             </div>
 
             <div class="footer-section">
                 <h3>Liens Rapides</h3>
                 <ul>
-                    <li><a href="#accueil">Accueil</a></li>
-                    <li><a href="#apropos">À Propos</a></li>
-                    <li><a href="#videos">Vidéos</a></li>
-                    <li><a href="#menu">Menu</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="Menu - Royaume des Sandwiches.pdf" download style="color: var(--orange-primary); font-weight: 600;">📄 Télécharger le Menu (PDF)</a></li>
+                    <li><a href="#accueil"><i data-lucide="home"></i> Accueil</a></li>
+                    <li><a href="#apropos"><i data-lucide="info"></i> À Propos</a></li>
+                    <li><a href="#avis"><i data-lucide="star"></i> Avis</a></li>
+                    <li><a href="#videos"><i data-lucide="video"></i> Vidéos</a></li>
+                    <li><a href="#menu"><i data-lucide="book-open"></i> Menu</a></li>
+                    <li><a href="#contact"><i data-lucide="mail"></i> Contact</a></li>
+                    <li><a href="Menu - Royaume des Sandwiches.pdf" download style="color: var(--orange-primary); font-weight: 600;">
+                        <i data-lucide="download"></i> Télécharger le Menu (PDF)
+                    </a></li>
                 </ul>
             </div>
         </div>
@@ -1229,6 +1826,9 @@
     </footer>
 
     <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
         // Navbar Scroll Effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
@@ -1285,7 +1885,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
